@@ -4,6 +4,8 @@
     overflow: hidden;
 }
 .main-header h1 {
+    box-sizing: content-box;
+    height: 64px;
     max-width: 700px;
     margin: 10px auto;
     padding: 3px 0 3px 77px;
@@ -22,4 +24,14 @@
     font-size: 14px;
     line-height: 26px;
     color: #666;
+}
+/* 小于 500 像素时 调整样式为移动端 */
+@media screen and (max-width: 500px) {
+    .main-header h1 .main-title {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .main-header h1 .subtitle {
+        display: none;
+    }
 }
