@@ -27,7 +27,7 @@
     color: #666;
 }
 .main-header .main-nav {
-    max-width: 800px;
+    width: 800px;
     position: absolute;
     top: 25px;
     left: 50%;
@@ -80,6 +80,8 @@
 /* 小于800时需调整导航方案 */
 @media screen and (max-width: 800px) {
     .main-header .main-nav {
+        width: auto;
+        max-width: 800px;
         right: 10px;
         margin-left: 0;
     }
