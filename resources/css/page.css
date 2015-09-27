@@ -1,3 +1,8 @@
+/* 本站定义的全局样式 */
+menu {
+    margin: 0;
+    padding: 0;
+}
 /* 头部的标题和导航 */
 .main-header {
     font-size: 16px;
@@ -26,6 +31,7 @@
     line-height: 26px;
     color: #666;
 }
+/* 导航 */
 .main-header .main-nav {
     width: 800px;
     position: absolute;
@@ -36,7 +42,7 @@
 .main-header .main-nav button {
     position: absolute;
     top: 5px;
-    right: 5px;
+    right: 10px;
     width: 35px;
     height: 30px;
     padding: 14px 5px;
@@ -46,6 +52,7 @@
             background-clip: content-box;
     box-sizing: border-box;
     border: none;
+    outline: none;
 }
 .main-header .main-nav button:before,
 .main-header .main-nav button:after {
@@ -63,10 +70,24 @@
     bottom: 6px;
 }
 .main-header .main-nav menu {
-    display: none;
+    /*display: none;*/
+    position: absolute;
+    top: 54px;
+    right: 0;
+    margin: 0;
+    background-color: #f2f2f2;
 }
-.main-header .main-nav li {
-
+.main-header .main-nav .item {
+    display: block;
+    line-height: 2.8em;
+    margin: 0 15px;
+    padding: 0 2em;
+    border-bottom: 1px solid #f8f8f8;
+    color: #606566;
+    font-size: 14px;
+}
+.main-header .main-nav .item:last-child {
+    border: none;
 }
 /* 小于 500 像素时 调整样式为移动端 */
 @media screen and (max-width: 500px) {
@@ -82,7 +103,7 @@
     .main-header .main-nav {
         width: auto;
         max-width: 800px;
-        right: 10px;
+        right: 0;
         margin-left: 0;
     }
 }
