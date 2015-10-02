@@ -149,7 +149,7 @@ menu {
     top: 2px;
 }
 .article-list-item .tags-container .tag-item {
-    background: #9e9999;
+    background: #c3bfbf;
     padding: 2px 5px;
     margin-left: 5px;
     color: #fff;
@@ -160,7 +160,7 @@ menu {
     display: inline-block;
     width: 14px;
     height: 14px;
-    background: #9e9999;
+    background: #c3bfbf;
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
 }
