@@ -152,8 +152,9 @@ but do not includethose characters in the match.</p>
 Require that the following characters do not match the pattern p.</p>
 <p>我解释给大家听：</p>
 <p>上面的断言是对写在其之前的正则的约束，即向后约束，也就是要求后面必须有什么（或没什么），如下面正则中括号内的部分是对 <code>bed</code> 做约束，即 <code>bad</code> 之后必须是 <code>room</code> 才能形成匹配。</p>
-<pre><code>&#39;bedding&#39;.match(/bed(?=room)/g);    // null
-&#39;bedroom&#39;.match(/bed(?=room)/g);    // [&quot;bed&quot;]
+<pre><code>&#39;bedding&#39;.match(/.+(?=room)/g);    // null
+&#39;bedroom&#39;.match(/.+(?=room)/g);    // [&quot;bed&quot;]
+&#39;washroom&#39;.match(/.+(?=room)/g);   // [&quot;wash&quot;]
 </code></pre><p>下面是只有 <code>bad</code> 之后不是 <code>room</code> 才能形成匹配</p>
 <pre><code>&#39;bedding&#39;.match(/bed(?!room)/g);    // [&quot;bed&quot;]
 &#39;bedroom&#39;.match(/bed(?!room)/g);    // null
