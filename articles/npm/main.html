@@ -27,7 +27,7 @@
     <div class="article-detail-container">
     <h1 id="npm">npm</h1>
 <blockquote>
-<p>NodeJs 的默认包管理器</p>
+<p>NodeJs 的默认包管理器。</p>
 </blockquote>
 <h2 id="-">常用命令</h2>
 <p>为新手注：如果是Mac，遇到权限问题前面加 <code>sudo</code>，如果需要密码则为开机密码。</p>
@@ -76,6 +76,15 @@ npm install gulp@3.7.0
 <p>bin 文件夹用来存放此包的实现代码。</p>
 <p>node_modules 文件夹用来存放当前包所以来的包。</p>
 <p>上面所有的这些都是可选的，一个符合 CommonJs 规范的 js 文件就可以作为一个包来使用，为了托管 npm 的统一制定了上面规范，如果你不考虑别人能不能看的懂 和 看的爽不爽 你可以忽略任何一条。</p>
+<p>npm WARN package.json demo@ No repository field.</p>
+<pre><code>&quot;repository&quot;: {
+  &quot;type&quot;: &quot;git&quot;,
+  &quot;url&quot;: &quot;git://github.com/username/repository.git&quot;
+},
+// 或者这样也可以
+&quot;private&quot;: true
+</code></pre><p>npm WARN package.json demo@ No README data</p>
+<p>npm WARN package.json demo@ No license field.</p>
 <h2 id="-">写一个包贡献给全世界</h2>
 <p>待续...</p>
 <h2 id="-">一些技巧</h2>
