@@ -6,11 +6,11 @@
 
 页面中的每一个元素在成像上都是一个长方形，而这个长方形的宽和高又受到位置相关属性的影响(如一个块元素被浮动那么可能其在宽度上不会填充满父元素)，所以我更倾向于将定位浮动等影响位置的相关属性也算在盒模型中。在 W3C 标准浏览器下：
 
-	元素的实际宽度 = width + padding + contentWidth + borderWidth 
+	元素的实际宽度 = width + padding + borderWidth 
 
 高度同理。
 
-## 需要注意的两点
+## 需要注意的三点
 
 ### 部分 form 元素
 
@@ -85,6 +85,40 @@
 
 这样定义的元素不会产生横向滚动条，上面 Demo 中的 Right 块采取绝对定位 `position: absolute;` 会使浏览器产生横向滚动条，这一点在做“回到顶部”这类页面组件动画时很有用。
 
+### 页面高度
+
+在页面中提高度，不管是一个元素的高度，还是整个页面的高度，就不得不提到三种溢出方式：定位溢出，负外边距溢出，外边距底部溢出。这里的溢出指子元素在呈现上没有被父元素完全包围，如“定位溢出”的关键代码如下：
+
+	position: absolute;
+	bottom: -50px;
+
+由于绝对定位的关系，子元素的一部分必然会父元素从下部伸出，由于绝对定位已经脱离了文档流所以直接计算比较困难。
+
+“负边距溢出”的关键代码如下：
+
+	margin-bottom: -50px;
+
+“外边距底部溢出”的关键代码如下：
+
+	margin-bottom: 50px;
+
+在容器没有设置 `overflow: hidden;` 或者边框时边距会溢出。
+
+好了交代完溢出的三种类型，来说说这三种溢出对页面高度的影响。从非技术角度看页面的高度就是我们看到的页面全部内容的高度，页面上的所有可见元素都放在 `body` 中，那 body 的高度就是页面高度吗？未必，别忘了还有溢出。经过实际测试`document.body.scrollHeight` 这一属性在IE8+，chrome，firefox 浏览器中对无溢出和“负边距溢出”有效，可以获取到准确的页面高度，但是对其他两种溢出高度的度量结果比实际高度会少溢出的那一部分高度。还有一个获取高度的方法：
+
+	document.documentElement.scrollHeight
+	
+可以正确处理三种溢出。其实 `documentElement` 就是 `html` 元素，还可以通过 `document.getElementsByTagName('html')[0]` 获取。 这个方案对于 Firefox 还有一个问题，在 iframe 高度比 html 的高度大时，这个方法取出来的高度是 iframe 的高度，要梳理清楚这个问题需要做的工作很多，要搞明白 clientHeight、offsetHeight 和 scrollHeight 在不同浏览器的实际表现，文档类型不同还会对实际表现产生影响，所以最好不要产生溢出。
+
+三种溢出示例：
+[定位溢出](/articles/css-box-model/demo/document-height.html)，
+[负边距溢出](/articles/css-box-model/demo/document-height2.html)，
+[外边距底部溢出](/articles/css-box-model/demo/document-height3.html)。
+
+## 实例
+
+### footer
+
 `html` 的高度默认情况下不会与 window 的高度相同，也就是在高度上 `html` 不会将 window 填充满，所以在处理“版权信息”这种模块时可以这样处理：
 
 	html {
@@ -123,7 +157,7 @@
 指定为弹性布局容器。`flex` 设置为块弹性容器；`inline-flex` 设置为内敛弹性容器。块状弹性容器比较好预期效果，因为子元素的宽度或高度直接依赖父元素的高度或宽度(后面简称宽度)，但是内敛容器就不同了，父元素的宽度会受子元素的宽度影响，子元素的宽度同样受父元素宽度的影响，比如设置了最小宽度和最大宽度，更要命的是子元素之间会通过父元素相互影响宽度。我们可以通过下面两条规则来预期内敛弹性布局容器展示效果：
 
 - 如果弹性布局容器的宽度已确定(包括宽度已给定，最小宽度，内容较多又有最大宽度或外部容器的限制)，按照 flex 的计算规则进行；
-- 如果弹性布局容器的宽度未确定，会先将内部元素的自然宽度加和，然后按比例分配，[如示例](/articles/css-box-model/demo/display:inline-flex.html)
+- 如果弹性布局容器的宽度未确定，会先将内部元素的自然宽度加和，然后按比例分配，如[示例](/articles/css-box-model/demo/display:inline-flex.html)。
 
 ### flex
 
@@ -278,9 +312,10 @@ flex 定义在弹性布局子项的元素上，属性值有两组：
 
 [https://drafts.csswg.org](https://drafts.csswg.org/css-flexbox-1/#flex)
 
-[http://www.w3.org/Style/CSS/current-work.en.html](http://www.w3.org/Style/CSS/current-work.en.html) 上的截图。
-
-[CSS各属性查询表](http://meiert.com/en/indices/cssproperties/)查看各个CSS属性属于哪个CSS版本，以及各个属性对应的默认值，以便更清楚地知道哪些属性是在CSS基础上添加的。(需要翻墙)
+[http://www.w3.org/Style/CSS/current-work.en.html](http://www.w3.org/Style/CSS/current-work.en.html) 
 
 [Flex 布局教程：语法篇,作者： 阮一峰](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
 
+[两个viewport的故事（第一部分）](http://weizhifeng.net/viewports.html)
+
+[两个viewport的故事（第二部分）](http://weizhifeng.net/viewports2.html)
