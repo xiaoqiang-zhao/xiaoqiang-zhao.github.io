@@ -1,6 +1,6 @@
 # 译 JointJS API
 
-> 可视化是软件开发中的一种思路，我们渴望不写代码拖拖拽拽，点击配置就可以生成可运行的项目，这是一个非常好的愿景，但是到目前为止方案很多但效果却并没有得到预期。我觉得这样的现状和这类系统的定位有关，这种交互行形式只适合做组合型的系统，可被操作的元素较少，关系种类较少，配置项较少，元素的关系的组合较多，并且希望用图形的方式来展示这些关系或节点状态。jointJs提供了基本支持，是二次开发的一个很不错的选择，本篇是[JointJS API](http://www.jointjs.com/api)的译文，期间会夹杂一些我的理解和实现方案。
+> 本篇是[JointJS API](http://www.jointjs.com/api)的译文，期间会夹杂一些我的理解和辅助理解的Demo。
 
 ## 概述
 
@@ -94,6 +94,24 @@ Demo [joint-dia-element.html](/articles/jointjs/demo/joint-dia-element.html) 下
 译者注：
 
 `translate` 是基于当前位置做位置改变，坐标左上角是原点，水平向右是 x 轴正方向，竖直向下是 y 轴正方向，`translate` 的位置变化值可正可负，分别对应于想坐标轴正向移动和负向移动。参见我写的 [示例](/articles/jointjs/demo/translate.html)
+
+### position
+
+`element.position(x, y, [opt])`
+
+此方法用于设置元素的 x,y 坐标，近似等于 `element.set('position', { x: x, y: y }, opt)`，不同的是`position`这个方法提供了更为丰富的配置。如果将 `opt.parentRelative` 设为 `true`，那么所设置坐标值的原点是当前元素父元素的坐标。如果访问此方法不带参数，那么返回当前元素的坐标。如果 `position({ parentRealtive: true })` 这样访问，返回的是当前元素相对于其父元素的坐标。
+
+[译者 Demo](/articles/jointjs/demo/element-position.html)
+
+### resize
+
+`element.resize(width, height [, opt])`
+
+对于有高和宽属性的[伸缩元素组](http://www.jointjs.com/tutorial#custom-elements) ，改变很方便的改变其大小，元素改变大小后左上角位置是不变的，当然这可以通过`opt.direction`参数来设置元素大小的扩展方向，可选值有：`left`,`right`,`top`,`bottom`,`top-left`,`top-right`,`bottom-left`,`bottom-right`(默认值)。
+
+这个方法和传统的元素缩放有一些不同，`resize`不会缩放全部子元素，他只会缩放 `<g class="scalable"/>` 这样的svg元素节点，这样可以灵活的定义子节点缩放还是不缩放。想象一下，如果有一个简单的长方形里面还包含一个文本节点，通常我们缩放长方形的时候并不希望改变字体大小，而且希望文字节点字号不变并居中显示，要实现这个是很容易的，通过向`<rect/>`元素中添加`<text ref-x=".5" ref-y=".5" ref="rect" />`元素，其中的 `ref-x`、`ref-y`和`ref`是 SVG的标准属性，这些特殊属性可以被 JointJs 识别，关于这类属性的更多资料可以在[特殊属性](http://www.jointjs.com/api#SpecialAttributes)中找到。
+
+[译者 Demo](/articles/jointjs/demo/element-resize.html)
 
 ## joint.dia.Link
 
