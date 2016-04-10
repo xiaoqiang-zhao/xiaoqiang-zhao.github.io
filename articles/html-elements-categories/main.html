@@ -3,7 +3,7 @@
 <head lang="zh-cn">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>为什么 div 不能放在 p 中？ - 龙则的个人站点</title>
+    <title>为什么 div 不能放在 p 中 - 龙则的个人站点</title>
     <script>
         // 用户通过搜索引擎到文章详情页时，跳到首页并进行哈希路由
         var href = window.location.href.replace(/[^:|\/]\//,function (matchStr){
@@ -18,11 +18,11 @@
     <h2> 精进自己，服务他人 </h2>
 </header>
 <div>
-    <h1 id="header-1">为什么 div 不能放在 p 中？</h1>
+    <h1 id="header-1">为什么 div 不能放在 p 中</h1>
 <blockquote>
 <p>这个结论很多人都知道，但是这个问题所涉及到的知识知道的人就不多了，本篇来谈谈HTML元素的渲染模型。</p>
 </blockquote>
-<h2 id="header-1-1">正面答题</h2>
+<h2 id="header-1-1">答题</h2>
 <p>每一个元素再被渲染的时候都会被识别为一个内容模型，但是一个元素可以属于零到多个内容模型，根据渲染时的实际情况来决定使用何种渲染模型。打个比方，元素是一个“男人”，当男人的爸爸叫一声“儿子”，这时男人就会应答一声 -- “儿子在这”，这相当与渲染，在这种情况下“男人”这个元素就被当做儿子模型来渲染；如果男人的老婆叫一声“老公”，这时男人应答为 “老公在这”，在这种情况下“男人”这个元素就被当做老公模型来渲染；那男人的爸爸和老婆同时叫“儿子”和“老公”可以吗？或许实际生活中是可以的，但在元素渲染这个机制下是不可以的，应为这样的话男人就不知道如何应答了，也就是说元素在实际渲染中只能按一个渲染模型来渲染。另外如果有人叫“闺女”，那男人无论如何都不会应答，将 div 放在 p 下就犯了这种错误。</p>
 <p>每个元素可以按哪几种渲染模型渲染，可以被哪几种模型的元素当做子元素，子元素又可以包含哪几种模型的元素，在 规范中都可以找到，例如在<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p" target="_blank"> p 元素的文档</a>中就定义了其子元素只能是 <code>Phrasing content</code> 这种模型的元素，但是我们去查<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div" target="_blank"> div 元素的文档</a>，发现 div 同学只能被解析成<code>Flow content</code> 和 <code>palpable content</code>两种模型，这就造成了对着一个“男人”喊“闺女”不被搭理的现象。</p>
 <p>关于渲染模型分类的知识请接看下面的章节。</p>
