@@ -1,5 +1,33 @@
 [
   {
+    "enName": "2016-new-year",
+    "title": "新年清零",
+    "introduction": "2016 年，新的一年清空所有从新开始。",
+    "tags": [
+      "个人笔记"
+    ],
+    "isPublished": true,
+    "state": "立项",
+    "type": "md",
+    "createDate": 1451963461598,
+    "commentList": [],
+    "todoList": []
+  },
+  {
+    "enName": "2016-year",
+    "title": "展望猴年",
+    "introduction": "过去的这一年，有一个很强烈的感觉就是自己的时间控制力变强了。这一年一共支持了公司的五个平台，持续更新开源项目 [cellar](https://github.com/longze/cellar)，本博客的建立和内容更新还有健身和户外。自我感觉做了非常多的事情，得益于 GTD 这个时间管理方法，其实就是把要做的事情写下来，然后拿出来一件做忘掉其他的，直到手上这件事完成再看下一件(可以休息一下)。在此做一个整年的 GTD 粗粒度列表。",
+    "tags": [
+      "个人笔记"
+    ],
+    "isPublished": true,
+    "state": "立项",
+    "type": "md",
+    "createDate": 1451964864503,
+    "commentList": [],
+    "todoList": []
+  },
+  {
     "enName": "array",
     "title": "Array那些事",
     "introduction": "Array，我们经常使用，却未见得知晓她的全部，这篇文章基本上是对官方API(包括ES5中Array的全部方法)的整理再加一些代码示例，整理在此一方面是自我修养一方面是方便查阅。",
@@ -10,9 +38,7 @@
     "state": "立项",
     "type": "md",
     "createDate": 1451965136558,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
@@ -24,9 +50,7 @@
     "state": "立项",
     "type": "md",
     "createDate": 1454417395978,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
@@ -41,9 +65,7 @@
     "state": "立项",
     "type": "md",
     "createDate": 1455876338883,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
@@ -58,9 +80,22 @@
     "state": "立项",
     "type": "md",
     "createDate": 1454643875842,
-    "commentList": [
-      ""
+    "commentList": [],
+    "todoList": []
+  },
+  {
+    "enName": "css-pre-processor",
+    "title": "CSS 预处理器",
+    "introduction": "随着前端工程越来越大，CSS 本身的限制严重影响了开发的速度的工程化管理能力，所以在大型应中使用 CSS 预处理器带来的好处相当明显，这篇文章旨在快速的学完 CSS 预处理器。",
+    "tags": [
+      "解决方案",
+      "个人笔记"
     ],
+    "isPublished": true,
+    "state": "立项",
+    "type": "md",
+    "createDate": 1463476652677,
+    "commentList": [],
     "todoList": []
   },
   {
@@ -74,9 +109,7 @@
     "state": "立项",
     "type": "md",
     "createDate": 1453122881019,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
@@ -91,9 +124,7 @@
     "state": "立项",
     "type": "md",
     "createDate": 1460775472043,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
@@ -174,9 +205,7 @@
     "state": "立项",
     "type": "md",
     "createDate": 1459092586508,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
@@ -207,9 +236,7 @@
     "state": "立项",
     "type": "md",
     "createDate": 1456893183622,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
@@ -224,9 +251,7 @@
     "state": "立项",
     "type": "md",
     "createDate": 1453353892535,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
@@ -241,25 +266,23 @@
     "state": "立项",
     "type": "md",
     "createDate": 1457665137355,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
-    "enName": "new-year",
-    "title": "新年清零",
-    "introduction": "2016 年，新的一年清空所有从新开始。",
+    "enName": "npm",
+    "title": "NPM",
+    "introduction": "NPM的全称是Node Package Manager，是一个NodeJS包管理和分发工具，但是在实际的操作中此管理器已经不止是 NodeJs 的包管理了，浏览器端的资源管理也可以借助此工具完成，前端的各种辅助工具也对此有依赖，所以 NPM 基本可以算作前端的必备技能，这里介绍一些基础知识和典型场景下的技巧。",
     "tags": [
-      "个人笔记"
+      "辅助软件",
+      "工程",
+      "规范"
     ],
     "isPublished": true,
-    "state": "立项",
+    "state": "公示持续集成中",
     "type": "md",
-    "createDate": 1451963461598,
-    "commentList": [
-      ""
-    ],
+    "createDate": 1462764177016,
+    "commentList": [],
     "todoList": []
   },
   {
@@ -274,9 +297,7 @@
     "state": "立项",
     "type": "md",
     "createDate": 1451965136562,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
@@ -292,9 +313,7 @@
     "state": "立项",
     "type": "md",
     "createDate": 1459148989047,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
@@ -311,9 +330,7 @@
     "state": "立项",
     "type": "md",
     "createDate": 1460254890796,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
@@ -327,9 +344,7 @@
     "state": "立项",
     "type": "md",
     "createDate": 1452679488698,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
@@ -343,9 +358,7 @@
     "state": "立项",
     "type": "md",
     "createDate": 1454761951091,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
@@ -360,9 +373,7 @@
     "state": "立项",
     "type": "md",
     "createDate": 1454410800902,
-    "commentList": [
-      ""
-    ],
+    "commentList": [],
     "todoList": []
   },
   {
