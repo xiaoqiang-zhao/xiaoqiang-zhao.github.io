@@ -87,9 +87,13 @@
 
 ### git checkout
 
-`git checkout -b 本地分支名 origin/远程分知名`，将远程分支检出到本地；
+`git checkout -b 本地分支名 origin/远程分知名`，将远程分支检出到本地作为新的本地分支，并且切换到新分支，参数 `-b` 指定是新建分支 `new branch` 而不是分只切换；
 	
 `git checkout 分知名` 切换本地分支；
+
+可以用此命令删除远程分支：`git push origin :分支名`，git 没有提供删除本地分支的命令，这里可以通过删除文件的方式删除本地分支：`rm .git/refs/heads/本地分支名`。
+
+HEAD 是 checkout 的灵魂。
 
 ### git fetch
 
@@ -135,3 +139,5 @@
 [github-flow](http://scottchacon.com/2011/08/31/github-flow.html)
 
 [创建 git 项目](http://www.jianshu.com/p/df7ce9f3a5cb)
+
+[git checkout 命令详解](http://www.tuicool.com/articles/A3Mn6f)
