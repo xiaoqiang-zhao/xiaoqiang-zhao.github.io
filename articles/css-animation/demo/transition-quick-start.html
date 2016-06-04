@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>开始</title>
+    <style rel="stylesheet">
+        body {
+            text-align: center;
+        }
+        span {
+            display: inline-block;
+            padding: 10px;
+            margin: 10px;
+            background: #40a070;
+            color: #fff;
+            transition: 0.5s;
+            /*margin 2s linear,*/
+        }
+        .span2 {
+            -webkit-transform: translate(0);
+        }
+        span:hover,
+        .hover {
+            padding: 20px;
+            /*margin: 0;*/
+            /*background: #10a025;*/
+        }
+    </style>
+</head>
+<body>
+<span> A </span>
+<span class="span2"> A </span>
+<script>
+    setTimeout(function () {
+        var spanDom = document.getElementsByTagName('span')[0];
+        // document.getElementsByTagName('span')[0].className = 'hover';
+        spanDom.style.padding = '20px';
+    }, 2000);
+</script>
+</body>
+</html>

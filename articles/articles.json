@@ -54,7 +54,7 @@
     "todoList": []
   },
   {
-    "enName": "css-animate",
+    "enName": "css-animation",
     "title": "CSS 动画(一)",
     "introduction": "目前我对于 CSS 动画还是一个菜鸟，从不会到熟练总需要一个过程，本篇从语法开始，记录我的学习，算是一份技术点备忘录吧。",
     "tags": [
@@ -84,7 +84,7 @@
     "todoList": []
   },
   {
-    "enName": "css-pre-processor",
+    "enName": "css-processor",
     "title": "CSS 预处理器",
     "introduction": "随着前端工程越来越大，CSS 本身的限制严重影响了开发的速度的工程化管理能力，所以在大型应中使用 CSS 预处理器带来的好处相当明显，这篇文章旨在快速的学完 CSS 预处理器。",
     "tags": [
@@ -236,6 +236,20 @@
     "state": "立项",
     "type": "md",
     "createDate": 1456893183622,
+    "commentList": [],
+    "todoList": []
+  },
+  {
+    "enName": "js-module",
+    "title": "js 模块化",
+    "introduction": "来说说 CommonJS,AMD,CMD.",
+    "tags": [
+      "技术点"
+    ],
+    "isPublished": true,
+    "state": "修正添加中",
+    "type": "md",
+    "createDate": 1459148989038,
     "commentList": [],
     "todoList": []
   },
