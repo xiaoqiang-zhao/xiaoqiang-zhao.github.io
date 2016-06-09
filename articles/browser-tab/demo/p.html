@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<a >AAA</a>
+<a >BBB</a>
+<a >CCC</a>
+<script>
+    window.closeWindowCb = function () {
+        window.childrenWindow = undefined;
+    };
+    $('a').click(function () {
+        var dom = $(this);
+        var text = dom.html();
+        if (window.childrenWindow === undefined) {
+            window.childrenWindow = window.open('./c.html');
+            // 子页面加载完成后执行回调
+            window.childrenWindow.onload = function () {
+                window.childrenWindow.initChildrenPage(text, function (body) {
+                    var a = '';
+                });
+            }
+        }
+        else {
+            window.childrenWindow.changeChildrenPage(text, function (body) {
+                var a = '';
+            });
+        }
+    });
+</script>
+</body>
+</html>

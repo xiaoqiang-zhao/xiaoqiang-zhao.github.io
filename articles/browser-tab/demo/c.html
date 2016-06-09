@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>child</title>
+    <script src="jquery-1.11.1.min.js"></script>
+    <script>
+        window.initChildrenPage = function (text, cb) {
+            document.body.innerHTML = text;
+            cb(document.body);
+        };
+        window.changeChildrenPage = function (text, cb) {
+            document.body.innerHTML += ' - ' + text;
+            cb(document.body);
+        };
+        $(window).bind('beforeunload', function () {
+            window.opener.closeWindowCb();
+            // 可以更具业务逻辑定制，但是用户的决定无法拿到
+            // return "您之前的操作尚未保存";
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
