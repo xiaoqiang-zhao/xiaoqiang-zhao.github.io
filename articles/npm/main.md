@@ -136,10 +136,5 @@ node 版本的偶数版是稳定版，使用 `n ls` 可以查看全部发布过�
 ES6 与 CommonJs 的引用略有不同，具体参考我的另一篇学习笔记[ ES6 学习笔记 - Part 3](/index.html#!/articles/es6-3)。
 
 ## 参考资料
-
-[package.json 的官方说明](https://github.com/npm/npm/blob/2e3776bf5676bc24fec6239a3420f377fe98acde/doc/files/package.json.md)
-
-[What's the difference between dependencies, devDependencies and peerDependencies in npm package.json file?](http://stackoverflow.com/questions/18875674/whats-the-difference-between-dependencies-devdependencies-and-peerdependencies)
 	
 [记npm包开发全过程](http://www.w2bc.com/Article/86039)	
-
