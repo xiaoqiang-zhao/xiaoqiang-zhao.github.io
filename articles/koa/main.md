@@ -231,9 +231,18 @@ RESTFul 风格的路由像这样配置：
 
 Generator 函数执行器，TJ大神的作品。[GitHub](https://github.com/tj/co)
 
+    co(gen);
+    
 ### methods
 
 Node 支持的 http 类型，这种只返回一个数组的小包居然也是 TJ 大神创立的。[GitHub](https://github.com/jshttp/methods)
+
+### assert
+
+对 Node 原生包的扩展，支持浏览器。[GitHub](https://github.com/defunctzombie/commonjs-assert)
+
+    // 判空
+    assert(root, 'root directory is required to serve files');
 
 ### http-errors
 
@@ -247,14 +256,25 @@ Node 支持的 http 类型，这种只返回一个数组的小包居然也是 TJ
 
 非常棒的路径匹配和 RESTFul 地址转化的工具。[GitHub](https://github.com/pillarjs/path-to-regexp)
 
+### is-generator-function
+
+判断一个函数是否是 Generator 函数。[GitHub](https://github.com/ljharb/is-generator-function)
+
+    const isG = require('is-generator-function');
+    isG(fn);
+    
 ## 参考
 
 [github koajs](https://github.com/koajs/koa)
 
 [Koa 官网](http://koajs.com/)
 
-[Koa 中文文档](http://koa.bootcss.com/)
+[Koa 中文文档 1](http://koa.bootcss.com/)
+
+[Koa 中文文档 2](https://github.com/guo-yu/koa-guide)
 
 [《Koa 实战》](http://book.apebook.org/minghe/koa-action/hello-koa/index.html)
+
+
 
 
