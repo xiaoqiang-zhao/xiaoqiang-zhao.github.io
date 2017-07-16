@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>vue2.0 通用代码片段 - 龙则的个人站点</title>
+    <script>
+        // 用户通过搜索引擎到文章详情页时，跳到首页并进行哈希路由
+        var href = window.location.href.replace(/[^:|\/]\//,function (matchStr){
+            return matchStr + 'index.html#!';
+        });
+        window.location.href = href.replace('/main.html', '');
+    </script>
+</head>
+<body>
+<header>
+    <h1> 龙则的个人站点 </h1>
+    <h2> 精进自己，服务他人 </h2>
+</header>
+<div>
+    <h1 id="header-1">vue2.0 通用代码片段</h1>
+<blockquote>
+<p>有一些全局起作用的代码，你的项目中也可能用得到。</p>
+</blockquote>
+<h2 id="header-1-1">全局的 Ajax 错误拦截</h2>
+<p>在业务代码中每个异步请求都需要有一个处理请求失败的回调函数，向下面这样：</p>
+<pre><code>this.$http.get(url).then((res) =&gt; {
+    // 成功的逻辑
+}, (res) =&gt; {
+    // 失败的逻辑
+});
+</code></pre><p>对于失败的逻辑，代码几乎都一致 -- 弹个框提示数据请求失败，这样的代码写多了就像能不能不每次写，研究了一下还真有，而且实现并不麻烦，先把代码扔出来：</p>
+<pre><code>import Vue from &#39;vue&#39;;
+import VueResource from &#39;vue-resource&#39;;
+Vue.use(VueResource);
+Vue.http.interceptors.push((request, next) =&gt; {
+    // 异步成功后最开始执行下面方法
+    next(response =&gt; {
+        if (response.body !== null) {
+            // 业务代码可能需要 后台返回的 status 和 statusInfo，这里添加一个字段
+            response.json = response.body;
+            // 为了数据使用方便，提升一级 data
+            response.body = response.body.data;
+
+            // 这里补一个系统级别的 逻辑错误指定
+            if (response.json.status !== 0) {
+                response.ok = false;
+            }
+        }
+
+        // 弹出全局错误提示
+        if (response.ok === false) {
+            let message;
+            let title = &#39;系统异常&#39;;
+            if (response.status !== 200) {
+                message = &#39;接口异常，异常状态码:&#39; + response.status;
+            }
+            else if (response.json &amp;&amp; response.json.statusInfo) {
+                message = response.json.statusInfo;
+                if (response.json.status === 500) {
+                    title = &#39;提示&#39;;
+                }
+                // 这里还可以和服务器端约定一些系统级的 status 码
+                // 如登录超时，无权限，系统繁忙稍后重试等，并进行统一处理
+            }
+
+            // messageBox 是封装的一个消息弹框
+            messageBox({
+                title: title,
+                type: &#39;error&#39;,
+                message: message
+            });
+        }
+
+        return response;
+    });
+});
+</code></pre><p>VueResource 提供了 interceptors 接口，我们可以注入自己的逻辑，回调函数会在请求前被执行，请求完成后会执行 next 函数。值得注意的是这个系统级别的拦截，业务代码无法控制其中的逻辑，除非你在里面加一下特殊的业务逻辑判断，但我认为那是比较糟糕的实现。</p>
+<h2 id="header-1-2">axios</h2>
+<p>刚做完上面的分享，发现 vue-resource 被官网弃坑了，真是感慨前端的技术迭代速度真是快。</p>
+<p>具体为什么弃坑请查阅这篇文章：<a href="https://medium.com/the-vue-point/retiring-vue-resource-871a82880af4" target="_blank">Retiring vue-resource</a>。我简单翻译了给出的 3 条理由：</p>
+<ul>
+<li>与 Vue 核心功能没有太大关系；</li>
+<li>有第三方库可以完成同样的功能，而且社区更活跃，我们是在做重复工作；</li>
+<li>我们可以把用在 vue-resource 上的时间花在更有意义的事情上。</li>
+</ul>
+<p>axios 也有 interceptors，只是将请求前和完成后分成了 request 和 response，用法大同小异：</p>
+<pre><code>axios.interceptors.request.use(function (config) {
+    // Do something before request is sent
+    return config;
+}, function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+});
+
+axios.interceptors.response.use(function (response) {
+    // Do something with response data
+    return response;
+}, function (error) {
+    // Do something with response error
+    return Promise.reject(error);
+});
+</code></pre><h2 id="header-1-3">404 页面</h2>
+<p>如果地址做了修改没有匹配到相应的页面模块，默认会出空白页面，这时我们需要有一个像传统多页面网站那样的 404 页面，可以添加这么一段检测路由匹配的代码：</p>
+<pre><code>router.beforeEach(function (to, from, next) {
+    // 未找到匹配页面
+    if (to.matched.length === 0) {
+        next({
+            path: &#39;/page-404&#39;,
+            query: {
+                fromPath: to.path
+            }
+        });
+    }
+}
+</code></pre><p>404 页面和普通的页面没有什么区别，这里简单示意一下：</p>
+<pre><code>&lt;template&gt;
+    &lt;div class=&quot;page-404&quot;&gt;
+        未找到匹配的页面模块:{{fromPath}}
+    &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+    export default {
+        data () {
+            return {
+                fromPath: this.$route.query.fromPath
+            }
+        }
+    }
+&lt;/script&gt;
+</code></pre>
+</div>
+</body>
+</html>
