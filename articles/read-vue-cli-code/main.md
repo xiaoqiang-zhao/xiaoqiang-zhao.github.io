@@ -1,6 +1,6 @@
 # Vue-cli 源码解读
 
-> Vue-cli 是创建 Vue 项目的脚手架，但是不像 Angular 和 React 脚手架那样提供大而全的功能，而是让使用者通过学习其他开源工具(如 Express，webpack 等)来根据自己的项目定制脚手架。两种思路各有优劣，这里不做评判，关于这一点可以在知乎看 大漠穷秋 和 尤雨溪 的论战。由于 Vue-cli 脚手架的特点，我们需要深入了解 Vue-cli 的源码，才能更好的配置自己的脚手架，搜易这篇文章来了。
+> Vue-cli 是创建 Vue 项目的脚手架，但是不像 Angular 和 React 脚手架那样提供大而全的功能，而是让使用者通过学习其他开源工具(如 Express，webpack 等)来根据自己的项目定制脚手架。两种思路各有优劣，这里不做评判，关于这一点可以在知乎看 大漠穷秋 和 尤雨溪 的论战。由于 Vue-cli 脚手架的特点，我们需要深入了解 Vue-cli 的源码，才能更好的配置自己的脚手架，所以这篇文章来了。cli -> Command Line Interface for batch scripting.
 
 ## 用到了那些库？
 
@@ -62,11 +62,11 @@
 
 template-name 首先可以从官方提供的 6 套模板中选一套，也可以自定义一套模板，放在你的 github 上：
 
-    vue init username/repo my-project
+    $ vue init <username/repo> <project-name>
 
 如果你不想开源你的模板，还可可以放在本地：
 
-    vue init ~/fs/path/to-custom-template my-project
+    $ vue init <~/fs/path/to-custom-template> <project-name>
 
 上面这些就是 `vue init` 命令实现的功能，下面我们通过源码分析一下这些功能是怎么实现的。
 
@@ -191,6 +191,20 @@ template-name 首先可以从官方提供的 6 套模板中选一套，也可以
         // ...
     })
 
+## 整理用到的库
+
+consolidate，集成模板引擎，。
+
+chalk，命令行高亮。
+
+commander，命令行辅助，TJ 大神的库。还有更简单的库 -- yargs。
+
+inquirer，收集用户输入，支持单选，多选，文本输入，密码输入，更具前面输入判断是否展示当前项，校验，加工输入
+
+download-git-repo，下载远程仓库。容易被忽略的一点就是带了 ssh 的功能，可以用来从私有库下载，回调函数执行的时候文件没有被保存到本地硬盘，可以在回调函数中加工下载文件。
+
+metalsmith，构建静态网站的工具，每一个加工的工序就是一个插件。
+
 ## 参考
 
 https://github.com/vuejs/vue-cli
@@ -204,6 +218,16 @@ https://github.com/segmentio/metalsmith
 https://github.com/tj/consolidate.js
 
 https://github.com/wycats/handlebars.js/
+
+## 相关文章
+
+https://zhuanlan.zhihu.com/p/25000026
+
+https://segmentfault.com/a/1190000009803941
+
+https://segmentfault.com/q/1010000007948863
+
+https://github.com/dwqs/blog/issues/56
 
 ## 遗留的问题
 
