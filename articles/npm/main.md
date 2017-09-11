@@ -1,8 +1,10 @@
 # NPM
 
-> NPM的全称是Node Package Manager，是一个NodeJS包管理和分发工具，但是在实际的操作中此管理器已经不止是 NodeJs 的包管理了，浏览器端的资源管理也可以借助此工具完成，前端的各种辅助工具也对此有依赖，所以 NPM 基本可以算作前端的必备技能，这里介绍一些基础知识和典型场景下的技巧。
+> NPM 的全称是 Node Package Manager，原本是一个 NodeJS 包管理和分发平台，但是浏览器端运行的 JS 也缺一个第三方包管理平台，后来在社区的推动下 NPM 可以管理全部的第三方 JS 包，包括 Node 端和浏览器端，浏览器到目前为止还没有原生支持包管理，现在浏览器端项目的包管理一般借助脚手架来实现。NPM 可以算作前端的必备技能，这里介绍一些基础知识和典型场景下的技巧。
 
 ## 一个包的基本组成
+
+NPM 是一个包管理平台，它对包做了一些规范，一些重要文件的描述如下：
 
 `package.json` 包的配置文件(一些重要的说明也在里面)；
 
@@ -24,9 +26,9 @@
 
 	npm install module-name --save-dev
 
-`npm install`默认会安转两种依赖相当于`npm install --production` + `npm install --dev`，如果你只是单纯的使用这个包而不需要进行一些改动测试之类的可以使用前一个，如果随着深入了解需要想进一步了解再将后一条命令执行以下就可以了。
+`npm install`默认会安转两种依赖相当于`npm install --production` + `npm install --dev`，如果你只是单纯的使用这个包而不需要进行一些改动测试之类的可以使用前一个，如果想进一步了解。
 
-另外参数 `npm install -g` 为全局安装。
+另外，如果想全局安装可以加参数 `-g`，像这样：`npm install -g <package-name>`。
 
 还可以从指定路径安装需要的包：
 
@@ -34,7 +36,7 @@
 
 如果装错了你可以不用管，但是如果有一点小洁癖的话可以卸载掉，加`-save`同样会将`package.json` 中的配置移除掉：
 
-	npm uninstall module-name -save
+	npm uninstall module-name --save
 
 ### 依赖包版本的控制
 
@@ -42,7 +44,7 @@
 
 Dependencies 用一个包名的简单哈希来描述包的版本范围(译者注：简单地说就是键值对"vue": "^2.1.4")。版本范围通过一个字符串来设置，该字符串可以有一个或多个间隔描述符。依赖包还可以通过源码或 git 的 URL来指定。 
 
-注意不要讲测试工具和打包转换等工具的依赖放到 Dependencies 中。
+注意不要将测试工具和打包转换等工具的依赖放到 Dependencies 中。
 
 - `^version` 能兼容所配置版本
 - `version1 - version2`
@@ -72,9 +74,15 @@ Git URLs 可以是下面格式：
 
 ## 常用命令
 
-`npm init`: 初始化 package.json 文件，根据提示输入一些关键信息就可以将文件初始化完成；
+`npm init`: 初始化 package.json 文件，根据提示输入一些关键信息就可以将文件初始化完成。
 
-`npm ls -g`: 查看所有全局安装的模块；
+`npm ls -g`: 查看所有全局安装的模块。如果你不想看到那么多层的依赖，那就加个参数吧：`sudo npm ls -g --depth 0`。
+
+`npm prune`: 如果你的node_modules目录中已经安装了一个package，但是package.json中并没有对该package做依赖，那么这个package就应该被删除。这时如果执行npm ls命令则指示有一个 “npm ERR! extraneous: ...”。为了清理代码，你需要执行npm prune。
+
+`npm uninstall <package-name>`: 卸载包。
+
+`npm root -g`: 查看全局安装路径。
 
 ## 多版本 node 管理
 
@@ -102,7 +110,8 @@ node 版本的偶数版是稳定版，使用 `n ls` 可以查看全部发布过�
     4.4.4
     5.11.0
     6.0.0
-    6.1.0
+    7.0.0
+    8.0.0
 
 关于版本管理，可以查看我的另一篇博客 [语义化版本 2.0.0](/index.html#!/articles/semantic-versioning)。
 
@@ -110,11 +119,11 @@ node 版本的偶数版是稳定版，使用 `n ls` 可以查看全部发布过�
 
 ### 缺 package.json 文件
 
-`npm ERR! registry error parsing json` 填写了 `-save` 或者 `-save-dev` 参数但是当前位置没有 package.json 文件，需要先执行 `npm init`；
+`npm ERR! registry error parsing json` 填写了 `--save` 或者 `--save-dev` 参数但是当前位置没有 package.json 文件，需要先执行 `npm init`；
 
 ### 依赖安装失败
 
-国内环境受到墙的影响，可能安装缓慢，也可能大面积安装失败，如果大面积安装失败可以尝试 `cnpm` 这样的国内镜像 或者翻墙。个别安装失败会在安装或运行的时候提示某个包找不到，这时需要单独安装缺失的包，npm 2.0 之后依赖的依赖不会放在依赖下面的 node_modules，而是会放在依赖的同级，所以只要在项目路径下安装缺失的包就可以。如果以上方法都不行，先去喝杯咖啡回来可能就可以装上了...
+国内环境受到墙的影响，可能安装缓慢，也可能大面积安装失败，如果大面积安装失败可以尝试 `cnpm` 这样的国内镜像，或者翻墙。个别安装失败会在安装或运行的时候提示某个包找不到，这时需要单独安装缺失的包，npm 2.0 之后依赖的依赖不会放在依赖下面的 node_modules，而是会放在依赖的同级，所以只要在项目路径下安装缺失的包就可以。如果以上方法都不行，先去喝杯咖啡回来可能就可以装上了...
 
 ### 依赖变更
 
@@ -153,6 +162,26 @@ ES6 与 CommonJs 的引用略有不同，具体参考我的另一篇学习笔记
 
     npm update <package name>
 
+删除一个包
+
+    npm --force unpublish 包名
+
+查看其它配置:
+
+    npm config ls -l
+    // 查看当前用户
+    npm whoami
+
+退出登录
+
+    npm logout
+
+有一次发布包的时候遇到个小问题，报错信息如下：
+
+    npm ERR! you must verify your email before publishing a new package: https://www.npmjs.com/email-edit :
+
+首先包中配置的邮箱要和 npm 账户中的邮箱要匹配，如果邮箱改变了需要重新验证，npm 会发验证邮件到邮箱，你需要点一下。有段时间翻墙有点问题，发现配 gmail 私活 publish 不上去，后来换成 163 邮箱就上去了。
+
 ## 收集常用的包
 
 ### 浏览器端、客户端
@@ -174,6 +203,8 @@ ES6 与 CommonJs 的引用略有不同，具体参考我的另一篇学习笔记
 - metalsmith，构建静态网站的工具，每一个加工的工序就是一个插件；
 
 ## 参考资料
+
+[官方文档](https://docs.npmjs.com)
 
 [package.json 的官方说明](https://github.com/npm/npm/blob/2e3776bf5676bc24fec6239a3420f377fe98acde/doc/files/package.json.md)
 
