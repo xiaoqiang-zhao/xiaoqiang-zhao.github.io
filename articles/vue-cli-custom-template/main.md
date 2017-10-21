@@ -107,14 +107,6 @@ vs code 需要加配置：
 - airbnb 约束较具体；
 - none 没有约束。
 
-国内互联网公司的编码规范，找到了百度的(欢迎补充其他厂的):
-
-规范文档：https://github.com/ecomfe/spec/blob/master/javascript-style-guide.md
-
-配置文件：https://github.com/ecomfe/fecs/tree/master/lib
-
-注意这套框架中没有 CSS 格式检测，可以扩展添加 csshint。
-
 最后注意一点，如果把编码规范的 level 设为 2(也就是 error)，那么在编码格式有问题的时候运行会直接报错。
 
 - "off" 或 0 - 关闭规则；
@@ -126,11 +118,47 @@ vs code 需要加配置：
     export default {
       name: 'app'{{#router}}{{#if_eq lintConfig "airbnb"}},{{/if_eq}}{{else}},
       components: {
-        Hello{{#if_eq lintConfig "airbnb"}},{{/if_eq}}
+        Hello{{#if_eq lint Config "airbnb"}},{{/if_eq}}
       }{{#if_eq lintConfig "airbnb"}},{{/if_eq}}{{/router}}
     }{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 
 为了一个逗号和行尾的封号写了很多的判断，对于一个团队来说定制一种编码规范改一下模板的成本会更小。如果想要初始化一些公用功能进去，这样判断需要大面积存在，特别不利于模板的二次定制，所以我们先定义几个简单的编码规范，我再提供一份编码规范的常用配置清单，各团队按需定制就行。
+
+### 编码规范参考
+
+国内大厂：
+
+百度的编码规范：
+
+规范文档：
+https://github.com/ecomfe/spec/blob/master/javascript-style-guide.md
+
+配置文件：
+https://github.com/ecomfe/fecs/tree/master/lib
+
+腾讯编码规范：
+http://alloyteam.github.io/CodeGuide/
+
+
+国外大厂：
+
+AirBnb 的编码规范：
+https://github.com/sivan/javascript-style-guide/blob/master/es5/README.md
+
+Google 的编码规范：
+https://google.github.io/styleguide/javascriptguide.xml
+
+国际标准编码规范：
+https://github.com/standard/standard
+
+vue 组件的编码规范：
+https://github.com/pablohpsilva/vuejs-component-style-guide
+
+官方风格指南：
+https://cn.vuejs.org/v2/style-guide/index.html
+
+vue 源码的编码规范：
+2 space index, never semicolon.
 
 ## 开始改造现有功能
 
@@ -454,6 +482,41 @@ webpack 中的配置改一下：
 本来样式也应该这样搞一下的，但是没找到比较好的工具和插件。最好用的也要算是 EFE 的 [csshint](https://github.com/ecomfe/node-csshint)了，但是定制能力不足，缺 IDE 插件支持。less、sass、stylus 可能需要不同的规则支持，不知道有没有比较好的规范和工具，这一块的配置可以加上。
 
 另外还有一种走全家桶路线思路，集成化格式验证工具中比较好用的是 FECS：https://github.com/ecomfe/fecs/wiki/CSSHint
+
+## style 强化
+
+### 预处理器
+
+CSS 在项目中必不可少，一般我们会引入预处理器来增强原生 CSS 的一些不足，但是官方模板并没有完全支持，每种预处理器都需要单独安装，如你想使用 less，那么需要手动安装`less` 和 `less-oader`两个包：
+
+    npm install less --save-dev
+    npm install less-loader --save-dev
+
+安装后把生成的配置添加到 template/package.json 中：
+
+    "less": "^3.0.0-alpha.3",
+    "less-loader": "^4.0.5",
+
+我们的项目用的是 Less，这里只把 Less 的依赖添加了进去，如果需要可以自行添加其他预处理器。
+
+另外再补充一点，webpack 对各种预处理器的配置在 template/build/utils.js 中生成，规则就是：预处理器名-loader：
+
+    loaders.push({
+        loader: loader + '-loader',
+        options: Object.assign({}, loaderOptions, {
+            sourceMap: options.sourceMap
+        })
+    })
+
+Less 规范：https://github.com/ecomfe/spec/blob/master/less-code-style.md
+
+### iconfont
+
+todo...
+
+代码格式...
+
+项目目录结构...
 
 ## webpack
 
