@@ -1,10 +1,10 @@
 # vue-cli 定义模板
 
-> 由于 vue-cli 官方提供的模板不能满足前后端分离的工作模式(工具链层面的)，需要定制自己的模板，这篇文章主要讲怎样定制一个模板，并介绍一下我定制的模板特性。
+> 由于 vue-cli 官方提供的模板不能满足前后端分离的工作模式(工具链层面的)，需要定制自己的模板，这篇文章主要讲怎样定制一个模板，并介绍一下我定制的模板特性，此模板作为我将来的开源项目脚手架。
 
 ## 站在巨人的肩上
 
-我们的总体思路是最大限度的利用官方已有模板，进行改造和增强。我在 github 上建了一个 organization: [vuejs-custom-templates-aggregate](https://github.com/vuejs-custom-templates-aggregate) ---- vue 自定义模板集合。然后将 https://github.com/vuejs-templates/webpack 项目 fork 进 vuejs-custom-templates-aggregate(vue 自定义模板集合)，我给他取了个名字叫 spa-simple。之所以没叫 webpack-spa，是应为 browserify 用的人越来越少了，大家提到包加载器基本默认就是 webpack，另外我想从应用场景来区分模板，并大胆的幻想将来出现的其他模板是：
+我们的总体思路是最大限度的利用官方已有模板及其功能，进行改造和增强。我在 github 上建了一个 organization: [vuejs-custom-templates-aggregate](https://github.com/vuejs-custom-templates-aggregate) ---- vue 自定义模板集合。然后将 https://github.com/vuejs-templates/webpack 项目 fork 进 vuejs-custom-templates-aggregate，我给他取了个名字叫 spa-simple。之所以没叫 webpack-spa，是应为 browserify 用的人越来越少了，大家提到包加载器基本默认就是 webpack，另外我想从应用场景来区分模板，并大胆的幻想将来出现的其他模板是：
 
 - spa-simple 纯前端单页应用；
 - spa-full-stack 全栈单页应用，后端提供业务模板和数据库；
@@ -18,15 +18,15 @@
 
 ### 概述
 
-先看看有什么功能，看着有用的保留，没用的去除：
+先看看有什么功能，有用的保留，没用的去除：
 
 - Project name 保持不变；
 - Project description 保持不变；
 - Author 保持不变；
 - Vue build 去掉，直接采用 Runtime-only 方案；
 - Install vue-router 去掉，直接选中；
-- ESLint 改为默认选中，需要增强，配置成自己公司的规范；
-- Pick an ESLint preset 选一种编码格式，根据团队习惯默认选一种
+- ESLint 改为默认选中；
+- Pick an ESLint preset 选一种编码格式，便于集成更多的代码进来；
 - Setup unit tests with Karma + Mocha 保留；
 - Setup e2e tests with Nightwatch 保留；
 
@@ -122,42 +122,7 @@ vs code 需要加配置：
       }{{#if_eq lintConfig "airbnb"}},{{/if_eq}}{{/router}}
     }{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 
-为了一个逗号和行尾的封号写了很多的判断，对于一个团队来说定制一种编码规范改一下模板的成本会更小。如果想要初始化一些公用功能进去，这样判断需要大面积存在，特别不利于模板的二次定制，所以我们先定义几个简单的编码规范，我再提供一份编码规范的常用配置清单，各团队按需定制就行。
-
-### 编码规范参考
-
-国内大厂：
-
-百度的编码规范：
-
-规范文档：
-https://github.com/ecomfe/spec/blob/master/javascript-style-guide.md
-
-配置文件：
-https://github.com/ecomfe/fecs/tree/master/lib
-
-腾讯编码规范：
-http://alloyteam.github.io/CodeGuide/
-
-国外大厂：
-
-AirBnb 的编码规范：
-https://github.com/sivan/javascript-style-guide/blob/master/es5/README.md
-
-Google 的编码规范：
-https://google.github.io/styleguide/javascriptguide.xml
-
-国际标准编码规范：
-https://github.com/standard/standard
-
-vue 组件的编码规范：
-https://github.com/pablohpsilva/vuejs-component-style-guide
-
-官方风格指南：
-https://cn.vuejs.org/v2/style-guide/index.html
-
-vue 源码的编码规范：
-2 space index, never semicolon.
+为了一个逗号和行尾的封号写了很多的判断，对于一个团队来说定制一种编码规范改一下模板的成本会更小。如果想要初始化一些公用功能进去，这样判断需要大面积存在，特别不利于模板的二次定制，所以我们会选择一种在开源届使用广泛的规范来作为唯一的规范，这种规范我准备选择 standard，具体原因和编码规范的详细内容查看我的另一篇文章[前端编码规范](/#!/articles/fe-code-style)。
 
 ## 开始改造现有功能
 
@@ -330,6 +295,17 @@ vue 源码的编码规范：
     // 将axios挂载到prototype上，在组件中可以直接使用this.$http访问
     Vue.prototype.$http = axios;
 
+关于插件的添加这篇文章写的很不错：[Use Any Javascript Library With Vue.js](https://vuejsdevelopers.com/2017/04/22/vue-js-libraries-plugins/)。axios 对返回的数据做了包装，我们需要做一些处理，一些对 Ajax 数据请求全局的处理逻辑也可以写进里面：
+
+    // 添加响应拦截器
+    axios.interceptors.response.use(function (res) {
+    // 对响应数据做些事
+      return res.data
+    }, function (error) {
+      // 请求错误时做些事
+      return Promise.reject(error)
+    })
+
 然后加 Mock 功能，之前只有代理模式，现在我们要加一种提供数据的模式 Mock，考虑到后面我们还要加全栈模式，这里把配置顺便升一下级：
 
     // config/index.js
@@ -401,7 +377,7 @@ vue 源码的编码规范：
 
 ## 改造代码格式验证
 
-我们打算去掉 ESlint 的询问，并且配置自己的验证规则，最后给出 IDE 的支持。
+我们打算去掉 ESlint 的询问，并且将编码规范设为 standard，最后给出 IDE 的支持。
 
 ### 去除 ESlint 询问配置
 
@@ -425,14 +401,12 @@ vue 源码的编码规范：
     // template/package.json
     // 去掉 {{#lint}} 成对的判断，我们恒定需要
     {{#lint}}
-    // 去掉下面两项的判断和其中的内容
-    {{#if_eq lintConfig "standard"}}
+    // 去掉 airbnb 的判断和其中的内容
     {{#if_eq lintConfig "airbnb"}}
 
 eslint 的配置文件也需要更改：
 
     // template/.eslintrc.js
-    // 去掉 {{#if_eq lintConfig "standard"}} 之间的内容，上下共 3 处
     // 去掉 {{#if_eq lintConfig "airbnb"}} 之间的内容，上下共 3 处
 
 webpack 中的配置改一下：
@@ -441,16 +415,6 @@ webpack 中的配置改一下：
     // 去掉 {{#lint}} 成对的判断，我们恒定需要
 
 最后把项目代码改一下，`template/src` 下的全部文件过一下，地方太多但是改起来很容易，我就不一个个的粘上来了。
-
-### 改 ESLint
-
-在 rules 中添加两条演示规则，最通用的两条：缩进两个空格，语句不能省略封号。
-
-    // template/.eslintrc.js
-    'indent': [level, 2],
-    'semi': [2, 'always'],
-
-更多配置在这里：[https://eslint.org/docs/rules/](https://eslint.org/docs/rules/)
 
 ### vscode 插件
 
@@ -474,7 +438,7 @@ webpack 中的配置改一下：
 
 最后把生成的文件 `settings.js` 连同文件夹 `.vscode` 拷贝进 `template`。
 
-其他的支持请自行 google。
+其他的支持请自行 Google。
 
 ### 小遗憾
 
@@ -493,7 +457,7 @@ CSS 在项目中必不可少，一般我们会引入预处理器来增强原生 
 
 安装后把生成的配置添加到 template/package.json 中：
 
-    "less": "^3.0.0-alpha.3",
+    "less": "^2.3.1",
     "less-loader": "^4.0.5",
 
 我们的项目用的是 Less，这里只把 Less 的依赖添加了进去，如果需要可以自行添加其他预处理器。
@@ -511,11 +475,26 @@ Less 规范：https://github.com/ecomfe/spec/blob/master/less-code-style.md
 
 ### iconfont
 
-todo...
+很难想象一个项目没有图标界面会长什么样，这里引入 iconfont，那么 iconfont 解决什么问题呢？
 
-代码格式...
+传统的小图标用小图片来实现，会产生一些问题，iconfont 就是为了解决这些问题而引入的，具体如下：
 
-项目目录结构...
+- 放大或缩小失真，iconfont 用 svg 来处理解决此问题；
+- 为了提高性能要合并成雪碧图不方便管理，iconfont 用字体库方便管理；
+- 多个颜色的小图标用图片需要多个，iconfont 可以像改变文字一样改变图标颜色。
+
+怎么用呢？
+
+- 首先你要有个账号：http://www.iconfont.cn/
+- 然后建立一个项目；
+- 选择图标加到项目中，然后下载到本地；
+- 解压添加到 assets 目录下；
+- 在项目代码中引入；
+- 在标签上添加 class。
+
+### CSS Normalize
+
+为了高效写出兼容个浏览器的样式，[CSS Normalize](http://nicolasgallagher.com/about-normalize-css/) 是必不可少的，@necolas 和 @jon_neal 花了几百个小时来努力研究不同浏览器的默认样式的差异，这个项目终于变成了现在这样。如果你还想了解更多的内容，从这里传送：[http://jerryzou.com/posts/aboutNormalizeCss/](http://jerryzou.com/posts/aboutNormalizeCss/)。
 
 ## 支持未压缩的打包
 
@@ -533,20 +512,21 @@ todo...
 
 然后命令行 `npm run qa` 就可以打出测试包了，这样可以很方便的在测试环境定位问题。
 
-## webpack
+## 完善代码
 
-webpack 是一个比较重要的技能，这里简单讲一下，
+将代码在改改，更接近一个真实的项目，这里就不粘代码上来了，主要是目录规范：
 
-## 问题
+    ${src}
+        ├── assets      存放静态文件
+        ├── components  存放公共组件 
+        ├── pages       存放页面
+        ├── router      路由
+        ├── App.js      单页应用中，Vue 组件的根节点
+        └── main.js     入口文件，公共资源在这里加载
 
-不支持 less？没包
+由于在单页应用中一切兼组件，所以全部的组件都放在 components 中反而不容易快速定位某个功能的代码，把页面全部放在 pages 中，pages 中的每个组件就是一个页面，和 router 中的配置一一对应。如果多个页面用到了相同的功能，或者功能本身不依赖于业务比较独立，那么把这类型的功能封装成组件放进 components 中。
 
-"less": "^2.7.1",
-"less-loader": "^2.2.3",
-
-less 的 alias 设置研究。
-
-不支持未压缩的打包
+最后说一下一个容易忽视的地方，在 template 写表达式的时候，如：`<div>{{text}}</div>`，要加上转译符号，否则在模板中输不出来，像这样：`<div>\{{text}}</div>`
 
 ## 参考
 
