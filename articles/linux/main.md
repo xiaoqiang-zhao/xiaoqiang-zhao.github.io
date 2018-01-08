@@ -8,7 +8,7 @@
 
 先说终端，这是个比较早的概念，在微软推出个人电脑前计算机比较昂贵，模式是一台中央计算机，连出几套显示器和键盘，最初把这一套套的显示器和键盘叫终端，后台有了专门的链接设备。再后来两边都在升级，中央电脑这边升级成了服务器集群(谷歌亚马逊)，终端这边升级为个人电脑，所以广义上讲所有连接了显示器和键盘以及可以链接其他计算机的计算机就是终端，但是随着时代的发展词还是原来的那个词(终端 Terminal)，意思却升级成了计算机上某种特定的软件，这种软件的交互方式是命令行，所以我们平时“说打开终端，在终端中输入什么” 就是“打开命令行工具，在命令行工具中输入什么”。还有一点意思上的升级，原来的终端指操控其他计算机的一种机器，现在的终端不仅指操作远程计算机也指操作当前计算机(终端本身)。
 
-然后是 shell，shell 是一个抽象概念，shell的一切操作都在计算机内部，负责处理人机交互，执行脚本等，是操作系统能正常运行的重要组成部分。bash，ash，zsh，tcsh等是shell这个抽象概念的一种具体的实现，都是一个程序，都能生成一个进程对象。是borne again shell的缩写,Linux上默认采用的是bash。那怎么知道当前 Linux 用的是哪个呢？
+然后是 shell，shell 是一个抽象概念，操作系统是需要保护的，不是没有围栏的公园，而是只有几个入口的城堡，这座城堡就是操作系统的内核(kernel)，shell就是城门。bash，ash，zsh，tcsh等是shell这个抽象概念的一种具体的实现，都是一个程序，都能生成一个进程对象。是borne again shell的缩写,Linux上默认采用的是bash。那怎么知道当前 Linux 用的是哪个呢？
 
     echo $SHELL
 
@@ -26,9 +26,6 @@ Linux 的核心思想就是一切皆文件。
     which node
     where node
     // 输出可能是这样:/usr/local/bin/node
-### 环境变量 Linux
-
-待续...
 
 ### 环境变量 Mac
 
@@ -52,6 +49,10 @@ Linux 的核心思想就是一切皆文件。
 系统级的环境变量添加直接修改 `/etc/paths` 文件，修改后直接生效。用户级的环境变量添加通过修改 `~/.bash_profile` 实现，修改完成后还要执行 `source ~/.bash_profile` 才能生效，但是如果你开了新的终端，那么在执行一次 `source ~/.bash_profile` 环境变量才能在当前终端生效。
 
 参考：[(Mac)在bash和zsh配置环境变量path的几种方法](http://www.jianshu.com/p/020f3d02f538)
+    
+### 环境变量 Linux
+
+全局的环境变量可以在 `/etc/profile` 文件的 `Path manipulation` 部分修改。
 
 ## 进程相关
 
@@ -124,9 +125,9 @@ Linux 的核心思想就是一切皆文件。
 
     useradd testuser
     
-给已创建的用户 testuser 设置密码
+给已创建的用户设置密码，回车后输入密码
 
-    passwd testuser
+    passwd 用户名
 
 删除用户 testuser
 
@@ -151,7 +152,11 @@ Linux 的核心思想就是一切皆文件。
     groupdel testgroup
 
 用户的文件夹一般在 `/home` 下。
-    
+
+改变文件或文件夹所有者
+
+    chown [-R] 账号名称 文件或目录
+
 ## 常用
 
 新建文件夹
@@ -190,9 +195,12 @@ Linux 的核心思想就是一切皆文件。
 
 XShell 远程传文件好用
 
-删除输入或粘贴的一大坨字符串
+删除输入或粘贴的一大坨字符串，准确的说是删除光标之前的内容：
 
+    # 删除光标之前的内容
     Ctr + u
+    #删除光标之后的内容
+    Ctr + k
 
 wget，从服务器下载文件。
 
@@ -280,10 +288,14 @@ chown -- 更改某个文件或目录的属主
 Linux安装node.js的binaries包：
 http://blog.csdn.net/justforfly/article/details/39293819
 
-查看 binaries: uname -a
+查看 Linux 内核版本，有时也叫 binaries: uname -a
 
-    CST 2015 x86_64 x86_64 x86_64 GNU/Linux
+    3.10.0_3-0-0-11 CST 2015 x86_64 x86_64 x86_64 GNU/Linux
 
 查看 centos 版本
 
     cat /etc/issue
+
+查看命令别名
+
+    alias

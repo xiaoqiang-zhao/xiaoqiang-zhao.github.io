@@ -28,6 +28,20 @@
     "todoList": []
   },
   {
+    "enName": "a-word-or-two",
+    "title": "记录自己的和别人的只言片语",
+    "introduction": "记录一些简短的东西，这些东西作为单独的一篇内容太单薄，但是放弃又太可惜，这里收录在这里。",
+    "tags": [
+      "个人笔记"
+    ],
+    "isPublished": true,
+    "state": "自我持续集成中",
+    "type": "md",
+    "createDate": 1459731839766,
+    "commentList": [],
+    "todoList": []
+  },
+  {
     "enName": "algorithms-1",
     "title": "当算法与前端相遇",
     "introduction": "前端需要了解算法吗？读了几章《算法导论》，结合一下项目实践试着以前端的视角来窥视一下算法的世界。",
@@ -447,6 +461,22 @@
     "todoList": []
   },
   {
+    "enName": "linux-read-note",
+    "title": "《鸟哥的 Linux 私房菜》读书笔记",
+    "introduction": "为了不底层基础大的更牢靠，阅读以下系统相关的书是必要的，由于这本书没有电子版发行，这篇是阅读纸质版的笔记，方便查阅和自我梳理。",
+    "tags": [
+      "服务器软件",
+      "个人笔记",
+      "推荐"
+    ],
+    "isPublished": true,
+    "state": "立项",
+    "type": "md",
+    "createDate": 1509372699070,
+    "commentList": [],
+    "todoList": []
+  },
+  {
     "enName": "mac-skill",
     "title": "Mac 的使用技巧",
     "introduction": "从 Windows 切换到 Mac 在操作上总有一些不一样，这里记录一下使用过程中的一些技巧。",
@@ -455,6 +485,21 @@
     "state": "立项",
     "type": "md",
     "createDate": 1458019846858,
+    "commentList": [],
+    "todoList": []
+  },
+  {
+    "enName": "mongo-db",
+    "title": "MongDb 学习笔记",
+    "introduction": "早闻大名，开始学习，下面是学习过程留下的笔记，力图用最少的时间，了解 80% 的内容。这个笔记也是以书《MongDB in Action》为主线来进行，会加一些官网和博客中的内容，这一篇是 Redis 的姊妹篇。",
+    "tags": [
+      "个人笔记",
+      "服务器软件"
+    ],
+    "isPublished": true,
+    "state": "完结",
+    "type": "md",
+    "createDate": 1511316333072,
     "commentList": [],
     "todoList": []
   },
@@ -654,20 +699,6 @@
     "state": "立项",
     "type": "md",
     "createDate": 1454410800902,
-    "commentList": [],
-    "todoList": []
-  },
-  {
-    "enName": "word-or-two",
-    "title": "记录自己的和别人的只言片语",
-    "introduction": "记录一些简短的东西，这些东西作为单独的一篇内容太单薄，但是放弃又太可惜，这里收录在这里。",
-    "tags": [
-      "个人笔记"
-    ],
-    "isPublished": true,
-    "state": "自我持续集成中",
-    "type": "md",
-    "createDate": 1459731839766,
     "commentList": [],
     "todoList": []
   },
