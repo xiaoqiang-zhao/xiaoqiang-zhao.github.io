@@ -475,9 +475,9 @@
     "todoList": []
   },
   {
-    "enName": "linux-read-note",
-    "title": "Linux 知识体系主干",
-    "introduction": "本文是全栈系列第一篇，主要建构起 Liunx 的知识树主干。",
+    "enName": "linux-base",
+    "title": "Linux 入门基础",
+    "introduction": "本文是全栈系列第一篇，主要讲那些一定要知道的基础概念，有了这些基础概念才能更好的学习和使用 Linux，而不是零散的记住几个命令。除了基础概念还记录了一些我在使用 CentOS 是遇到的问题和解决办法，这些问题都是初学者大概率会遇到的问题。",
     "tags": [
       "服务器软件",
       "个人笔记",
@@ -548,6 +548,21 @@
     "todoList": []
   },
   {
+    "enName": "node-async",
+    "title": "NodeJs 异步流程控制",
+    "introduction": "NodeJs 的核心就是异步流程控制，也是学习和使用 NodeJs 绕不开的坎儿，本文主要介绍异步的三种方法: Callback、Promise、Async/Await",
+    "tags": [
+      "技术点",
+      "个人笔记"
+    ],
+    "isPublished": true,
+    "state": "立项",
+    "type": "md",
+    "createDate": 1518151610128,
+    "commentList": [],
+    "todoList": []
+  },
+  {
     "enName": "npm",
     "title": "NPM",
     "introduction": "NPM 的全称是 Node Package Manager，原本是一个 NodeJS 包管理和分发平台，但是浏览器端运行的 JS 也缺一个第三方包管理平台，后来在社区的推动下 NPM 可以管理全部的第三方 JS 包，包括 Node 端和浏览器端，浏览器到目前为止还没有原生支持包管理，现在浏览器端项目的包管理一般借助脚手架来实现。NPM 可以算作前端的必备技能，这里介绍一些基础知识和典型场景下的技巧。",
@@ -608,6 +623,22 @@
     "state": "立项",
     "type": "md",
     "createDate": 1460254890796,
+    "commentList": [],
+    "todoList": []
+  },
+  {
+    "enName": "ssr",
+    "title": "服务器端渲染的几点说明和注意",
+    "introduction": "服务器端渲染简称 SSR(server side render)，就是在服务器端将数据和 HTML 融合后返回给浏览器，多年前的 JSP 不就是这么做的吗，我们当初为什么抛弃这种模式，现在为什么又重提这种模式，是换个轮胎开倒车吗，还是爱情买卖？当初是你要分开，分开就分开，现在又要用真爱，把我哄回来...",
+    "tags": [
+      "个人笔记",
+      "工程",
+      "技术点"
+    ],
+    "isPublished": true,
+    "state": "完结",
+    "type": "md",
+    "createDate": 1524895002121,
     "commentList": [],
     "todoList": []
   },
