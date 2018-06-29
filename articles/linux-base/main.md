@@ -96,7 +96,7 @@ pwd
 mkdir -p a/b/c
 # 删除文件夹及其内部的全部内容
 rm -rf 文件夹名称
-# 复制，复制文件夹以及里面的内容加参数 -r，联通文件属性复制加 -p
+# 复制，复制文件夹以及里面的内容加参数 -r，连同文件属性复制加 -p
 cp -rp 源文件 目标文件
 # 移动文件，文件更名
 mv 源文件 目标文件
@@ -127,8 +127,12 @@ bash aaa
 ```bash
 # 压缩，使用不同的参数采用相应的压缩算法
 tar -jcv -f a.tar.bz2    a
+tar -zcv -f a.tar.gz     a
             压缩后的名称   被压缩的文件夹
+# zip 命令压缩文件
 zip a.zip a
+# zip 命令压缩文件夹
+zip -r ./a.zip ./a/*
 # 解压到当前文件夹
 tar -jxv -f a.tar.bz2 -C ./
 tar -zxv -f a.tar.gz -C ./
