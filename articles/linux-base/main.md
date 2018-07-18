@@ -137,7 +137,10 @@ zip -r ./a.zip ./a/*
 tar -jxv -f a.tar.bz2 -C ./
 tar -zxv -f a.tar.gz -C ./
 # 解压 zip 包可以直接用 unzip 命令
+# 注意解压路径是当前的执行路径
 unzip 文件名.zip > /dev/null
+# 指定解压到某个目录
+unzip 文件名.zip -d the/path > /dev/null
 # 不解压也可以看目录
 tar -jtv -f a.tar.bz2
 ```
@@ -750,6 +753,13 @@ ps axjf
 ```bash
 lsof -i tcp:9999
 ```
+
+查看 Web 服务是否启动成功
+
+```bash
+telnet 10.0.250.3 8090
+```
+
 ## 参考
 
 《鸟哥的 Linux 私房菜》
